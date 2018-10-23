@@ -1,0 +1,5 @@
+Оптимизируйте страницу, выложите на GitHub Pages. Зайдите на https://shri-performance.ru и отправьте урл своей страницы.
+
+Срок сдачи - до 31.10.2018 включительно.
+
+https://castellord.github.io/ShriHomework6/
