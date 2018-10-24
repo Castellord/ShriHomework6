@@ -16,7 +16,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.(png|woff|woff2|eot|ttf|svg|jpg|gif)$/,
+                test: /\.(png|woff|woff2|eot|ttf|svg|jpg|gif|webp)$/,
                     loader: 'file-loader'  
               },
             {
