@@ -1,32 +1,68 @@
 {
-    "name": "task2",
-    "version": "1.0.0",
-    "description": "Yandex SHRI Task2",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "Egor Gugaev",
-    "license": "ISC",
-    "dependencies": {
-        "babel-core": "^6.26.3",
-        "babel-preset-env": "^1.7.0",
-        "browser-sync": "^2.24.6",
-        "css": "^2.2.3",
-        "gulp": "^3.9.1",
-        "gulp-autoprefixer": "^5.0.0",
-        "gulp-babel": "^7.0.1",
-        "gulp-clean-css": "^3.10.0",
-        "gulp-concat": "^2.6.1",
-        "gulp-connect": "^5.5.0",
-        "gulp-minify": "^3.1.0",
-        "gulp-rigger": "^0.5.8",
-        "gulp-sourcemaps": "^2.6.4",
-        "gulp-uglify": "^3.0.1",
-        "gulp-watch": "^5.0.1"
-    },
-    "devDependencies": {
-        "gulp-rimraf": "^0.2.2",
-        "run-sequence": "^2.2.1"
+  "name": "iseed",
+  "description": "Frontend project template (for a quick star), with full test and build infrastructure.",
+  "version": "1.1.1",
+  "author": "Andrey Morozov <alt-j@yandex-team.ru>",
+  "contributors": [
+    {
+      "name": "Alexander Tarmolov",
+      "email": "hevil@yandex-team.ru"
     }
+  ],
+  "keywords": [
+    "frontend",
+    "project",
+    "stub",
+    "seed",
+    "template",
+    "infrastructure",
+    "hooks",
+    "hook",
+    "lint",
+    "test",
+    "development",
+    "karma",
+    "webpack"
+  ],
+  "repository": "https://github.com/alt-j/iseed",
+  "devDependencies": {
+    "autoprefixer-loader": "1.0.0",
+    "babel-core": "5.8.23",
+    "babel-loader": "5.3.2",
+    "chai": "1.9.2",
+    "copy-webpack-plugin": "^4.5.4",
+    "core-js": "1.1.4",
+    "css-loader": "0.9.0",
+    "eslint": "1.3.1",
+    "file-loader": "^2.0.0",
+    "git-hooks": "1.0.0",
+    "html-webpack-plugin": "1.6.1",
+    "jscs": "2.1.1",
+    "karma": "0.13.9",
+    "karma-cli": "0.1.0",
+    "karma-mocha": "0.2.0",
+    "karma-phantomjs-launcher": "0.2.1",
+    "karma-sinon-chai": "1.0.0",
+    "karma-webpack": "1.7.0",
+    "mocha": "2.0.1",
+    "mocha-loader": "0.7.0",
+    "phantomjs": "1.9.18",
+    "sinon": "1.9.1",
+    "style-loader": "0.8.2",
+    "stylus-loader": "0.4.0",
+    "url-loader": "^1.1.2",
+    "webpack": "1.4.13",
+    "webpack-dev-server": "1.10.1"
+  },
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack -p",
+    "validate": "npm run lint && npm run test",
+    "lint": "jscs . && eslint .",
+    "test": "karma start karma.conf.js"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT"
 }
