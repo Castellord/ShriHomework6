@@ -9,6 +9,8 @@ const gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     cssmin = require('gulp-clean-css'),
     connect = require('gulp-connect')
+    rimraf = require('rimraf');
+    runSequence = require('run-sequence');
 reload = browserSync.reload;
 
 gulp.task('connect', function() {
@@ -24,20 +26,23 @@ const path = {
         js: 'docs/js/',
         css: 'docs/css/',
         img: 'docs/img/',
+        fonts: 'docs/fonts/',
     },
     src: { //Пути откуда брать исходники
         html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
         js: 'src/js/**/*.js', //В стилях и скриптах нам понадобятся только main файлы
         style: 'src/css/**/*.css',
         img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+        fonts: 'src/fonts/**/*.*'
     },
     watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
         html: 'src/**/*.html',
         js: 'src/**/*.js',
         style: 'src/**/*.css',
         img: 'src/img/**/*.*',
+        fonts: 'src/fonts/**/*.*',
     },
-    clean: './build'
+    clean: './docs'
 };
 
 const config = {
@@ -87,12 +92,30 @@ gulp.task('image:build', function() {
         .pipe(connect.reload());
 });
 
-gulp.task('build', [
-    'html:build',
-    'js:build',
-    'style:build',
-    'image:build'
-]);
+gulp.task('fonts:build', function() {
+    gulp.src(path.src.fonts) //Выберем наши картинки
+        .pipe(gulp.dest(path.build.fonts)) //И бросим в build
+        .pipe(connect.reload());
+});
+
+gulp.task('clean', function(cb) {
+    rimraf(path.clean, cb);
+});
+
+// gulp.task('build',['clean'],function (){
+// gulp.start(
+//     'html:build',
+//     'js:build',
+//     'style:build',
+//     'image:build',
+//     'fonts:build',
+// );
+// });
+
+gulp.task('build', function() {
+    runSequence('clean', ['html:build','js:build', 'style:build', 'image:build', 'fonts:build'] );
+  });
+  
 
 gulp.task('watch', function() {
     watch([path.watch.html], function(event, cb) {
@@ -107,10 +130,9 @@ gulp.task('watch', function() {
     watch([path.watch.img], function(event, cb) {
         gulp.start('image:build');
     });
-});
-
-gulp.task('clean', function(cb) {
-    rimraf(path.clean, cb);
+    watch([path.watch.fonts], function(event, cb) {
+        gulp.start('fonts:build');
+    });
 });
 
 gulp.task('default', ['build', 'connect', 'watch']);
