@@ -64,12 +64,10 @@ gulp.task('html:build', function() {
 
 gulp.task('js:build', function() {
     gulp.src(path.src.js) //Найдем наш main файл
-        .pipe(babel({
-            presets: ['env']
-        }))
+       .pipe(babel({presets: ['env']}))
         .pipe(sourcemaps.init())
         .pipe(concat('main.js')) //Прогоним через rigger //Инициализируем sourcemap
-        .pipe(uglify()) //Сожмем наш js
+       .pipe(uglify()) //Сожмем наш js
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
         .pipe(connect.reload());
