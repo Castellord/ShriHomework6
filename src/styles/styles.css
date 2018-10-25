@@ -702,9 +702,7 @@ html {
 .weather__item_cloud-drizzle {
   background: url("../assets/cloud-drizzle.png") 100% 70%/26px no-repeat;
 }
-.stats {
-  opacity: 0;
-}
+
 .panel__icon {
   width: 24px;
   height: 24px;
