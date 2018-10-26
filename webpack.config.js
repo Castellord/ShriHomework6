@@ -20,8 +20,9 @@ module.exports = {
         test: /\.(png|svg|jpg|gif|webp)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
               options: {
+                limit: 10000,
                 name: 'img/[name].[ext]',
               
             }
@@ -55,13 +56,6 @@ module.exports = {
           'css-loader'
         ]
       }
-      // ,
-      // {
-      //   test: /\.html$/,
-      //   use: {
-      //     loader: "html-loader"
-      //   }
-      // }
     ]
   },
   plugins: [
