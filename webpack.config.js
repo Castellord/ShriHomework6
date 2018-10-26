@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   // Точка входа
@@ -13,6 +14,9 @@ module.exports = {
     // Имя собранного JS
     filename: 'script.[contenthash].js'
   },
+  // optimization: {
+  //   minimizer: [new UglifyJsPlugin()]
+  // },
   module: {
     rules: [
       {
