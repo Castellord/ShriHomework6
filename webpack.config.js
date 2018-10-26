@@ -23,7 +23,7 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif|webp)$/,
         use: [
-          'url-loader?limit=100',
+          'url-loader?limit=1000',
           {
             loader: 'img-loader',
             options: {
