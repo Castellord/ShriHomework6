@@ -51,7 +51,6 @@ module.exports = {
         test: /\.css$/,
         use: [
           'style-loader', 
-           MiniCssExtractPlugin.loader,
           'css-loader'
         ]
       }
@@ -66,12 +65,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin('docs', {} ),
-    new MiniCssExtractPlugin({
-      filename: 'style.[contenthash].css',
-    })
-    ,
     new HtmlWebpackPlugin({
-      inject: false,
+      inject: true,
       hash: true,
       template: './src/html/index.html',
       favicon: './src/favicon/favicon.ico',
