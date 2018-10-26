@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyEsPlugin = require('uglify-es-webpack-plugin');
 const OptimizeJsPlugin = require("optimize-js-plugin");
+const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 module.exports = {
   // Точка входа
@@ -20,12 +21,21 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif|webp)$/,
         use: [
+          'url-loader?limit=100',
           {
-            loader: 'url-loader',
-              options: {
-                limit: 10000,
-                name: 'img/[name].[ext]',
-              
+            loader: 'img-loader',
+            options: {
+              plugins: [
+                require('imagemin-webp')({
+                  quality: 75
+                }),
+                require('imagemin-svgo')({
+                  plugins: [
+                    { removeTitle: true },
+                    { convertPathData: false }
+                  ]
+                })
+              ]
             }
           }
         ]
@@ -71,6 +81,11 @@ module.exports = {
     new UglifyEsPlugin(),
     new OptimizeJsPlugin({
       sourceMap: false
+  }),
+  new ImageminPlugin({
+    pngquant: {
+      quality: '95-100'
+    }
   })
   ]
 }
