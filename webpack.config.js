@@ -2,8 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyEsPlugin = require('uglify-es-webpack-plugin');
-const OptimizeJsPlugin = require("optimize-js-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
 module.exports = {
@@ -15,6 +14,9 @@ module.exports = {
     path: path.resolve(__dirname, 'docs'),
     // Имя собранного JS
     filename: 'script.[contenthash].js'
+  },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()]
   },
   module: {
     rules: [
@@ -78,10 +80,6 @@ module.exports = {
       favicon: './src/favicon/favicon.ico',
       filename: 'index.html'
     }),
-    new UglifyEsPlugin(),
-    new OptimizeJsPlugin({
-      sourceMap: false
-  }),
   new ImageminPlugin({
     pngquant: {
       quality: '95-100'
