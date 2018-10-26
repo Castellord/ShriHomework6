@@ -77,7 +77,6 @@ module.exports = {
     new CleanWebpackPlugin('docs', {} ),
     new HtmlWebpackPlugin({
       inject: true,
-      hash: true,
       template: './src/html/index.html',
       favicon: './src/favicon/favicon.ico',
       filename: 'index.html'
