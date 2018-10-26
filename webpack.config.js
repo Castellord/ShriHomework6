@@ -1,66 +1,82 @@
-const webpack = require('webpack');
+const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ImageminPlugin = require('imagemin-webpack-plugin').default;
-const environment = process.env.NODE_ENV || 'development';
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: {
-        main: __dirname + '/src/js/boot.js'
-    },
-    output: {
-        path: __dirname + '/docs',
-        filename: 'build.js'
-    },
-
-    module: {
-        loaders: [
-            {
-                test: /\.(png|woff|woff2|eot|ttf|svg|jpg|gif|webp)$/,
-                    loader: 'file-loader'  
-              },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!css-loader!stylus-loader'
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
+  // Точка входа
+  entry: { main: './src/js/script.js' },
+  // Выход
+  output: {
+    // Папка сборки
+    path: path.resolve(__dirname, 'docs'),
+    // Имя собранного JS
+    filename: 'script.[contenthash].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|gif|webp|ico)$/,
+        use: [
+          {
+            loader: 'url-loader',
+              options: {
+                limit: 8192,
+                name: 'img/[name].[ext]',
+              
             }
-            
+          }
         ]
-    },
-
-    resolve: {
-        root: __dirname
-    },
-
-    plugins: [
-        new HtmlWebpackPlugin({
-            inject: 'body',
-            filename: 'index.html',
-            template: __dirname + '/src/index.html'
-        }),
-        new CopyWebpackPlugin([
-            {from:'./src/assets',to:'img'} 
-        ]),
-        new ImageminPlugin({
-            pngquant: {
-              quality: '95-100'
-            }
-          }),
-        new webpack.DefinePlugin({'process.env.NODE_ENV': '"' + environment + '"'}),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            }
-        }),
-        
-    ],
-
-    devServer: {
-        contentBase: './docs'
-    }
-};
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        use: [
+          {
+            loader: 'url-loader',
+              options: {
+                limit: 8192,
+                name: 'fonts/[name].[ext]'
+              }
+            
+          }
+        ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader', 
+           MiniCssExtractPlugin.loader,
+          'css-loader'
+        ]
+      }
+      // ,
+      // {
+      //   test: /\.html$/,
+      //   use: {
+      //     loader: "html-loader"
+      //   }
+      // }
+    ]
+  },
+  plugins: [
+    new CleanWebpackPlugin('docs', {} ),
+    new MiniCssExtractPlugin({
+      filename: 'style.[contenthash].css',
+    })
+    ,
+    new HtmlWebpackPlugin({
+      inject: false,
+      hash: true,
+      template: './src/html/index.html',
+      favicon: './src/favicon/favicon.ico',
+      filename: 'index.html'
+    })
+  ]
+}

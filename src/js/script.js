@@ -1,3 +1,4 @@
+import "../css/style.css";
 document.addEventListener('DOMContentLoaded', function() {
   
 const output = document.querySelector(".modal__value");
