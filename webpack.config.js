@@ -46,12 +46,7 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf)$/,
         use: [
           {
-            loader: 'url-loader',
-              options: {
-                limit: 1,
-                name: 'fonts/[name].[ext]'
-              }
-            
+            loader: 'file-loader'
           }
         ]
       },
