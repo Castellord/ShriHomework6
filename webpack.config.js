@@ -72,7 +72,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: './src/html/index.html',
-      favicon: './src/favicon/favicon.ico',
       filename: 'index.html'
     }),
   new ImageminPlugin({
