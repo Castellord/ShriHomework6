@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyEsPlugin = require('uglify-es-webpack-plugin');
+const OptimizeJsPlugin = require("optimize-js-plugin");
 
 module.exports = {
   // Точка входа
@@ -67,6 +68,9 @@ module.exports = {
       favicon: './src/favicon/favicon.ico',
       filename: 'index.html'
     }),
-    new UglifyEsPlugin()
+    new UglifyEsPlugin(),
+    new OptimizeJsPlugin({
+      sourceMap: false
+  })
   ]
 }
