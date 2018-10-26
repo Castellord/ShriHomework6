@@ -1,5 +1,4 @@
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -30,7 +29,7 @@ module.exports = {
             options: {
               plugins: [
                 require('imagemin-webp')({
-                  quality: 75
+                  quality: 50
                 }),
                 require('imagemin-svgo')({
                   plugins: [
