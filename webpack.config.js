@@ -29,7 +29,7 @@ module.exports = {
             options: {
               plugins: [
                 require('imagemin-webp')({
-                  quality: 50
+                  quality: 30
                 }),
                 require('imagemin-svgo')({
                   plugins: [
