@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
-
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 module.exports = {
   // Точка входа
@@ -73,6 +73,16 @@ module.exports = {
       inject: true,
       template: './src/html/index.html',
       filename: 'index.html'
+    }),
+    new PreloadWebpackPlugin({
+      rel: 'preload',
+      include: 'allAssets',
+      as(entry) {
+        if (/\.css$/.test(entry)) return 'style';
+        if (/\.(woff2|eot)$/.test(entry)) return 'font';
+        if (/\.webp$/.test(entry)) return 'image';
+        return 'script';
+      }
     }),
   new ImageminPlugin({
     pngquant: {
